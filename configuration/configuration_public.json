@@ -1,0 +1,17 @@
+{
+    "Port":":8888",
+    "ViewRootPath":"web/views/",
+    "EEGDataPath":"deeplearning/eeg_data/",
+    "DB": {
+        "ID":"",
+        "Password":"",
+        "Name":""
+    },
+    "SMS": {
+        "SecretId":"",
+        "SecretKey":"",
+        "SdkAppId":"",
+        "Signature":"",
+        "TemplateId":""
+    }
+}

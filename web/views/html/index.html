@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诊断报告</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">   
+    <link rel="stylesheet" href="css/magnific-popup.css">       
+    <link rel="stylesheet" href="css/tooplate-vertex.css">
+</head>
+
+<body>
+    <!-- Page Loader -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="tm-nav">
+        <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul id="tm-main-nav">
+            <li class="nav-item">                                
+                <a href="#intro" class="nav-link current">
+                    个人基本信息
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#services" class="nav-link">
+                    脑电分析结果
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#gallery" class="nav-link">
+                    量表评分结果
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#about" class="nav-link">
+                    所使用的深度学习模型
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#contact" class="nav-link">
+                    联系我们
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'download' %}" class="nav-link">
+                    报告下载
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Content -->
+    <main>
+        <div id="intro" class="tm-section">
+            <div class="tm-section-col tm-content">
+                <h2 class="tm-text-primary">个人基本信息</h2>
+                <table style="border: 1" id="tb" width="1000px">
+                    <tr>
+                        <td>姓名</td>
+                        <td>性别</td>
+                        <td>年龄</td>
+                        <td>测试日期</td>
+                    </tr>
+                </table>  
+            </div>
+        </div> 
+
+        <div id="services" class="tm-section">
+            <div class="tm-section-col tm-content">
+                <h2 class="tm-text-primary">脑电分析结果</h2>
+                <div class="tm-media">
+                    <img id="eeg" alt="Intro image" height="403" width="640">
+                    <script>document.getElementById("eeg").src="images/eeg/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <div class="tm-media-body">
+                        <h2><a class="tm-text-primary">脑电波信号图</a></h2>
+                        <p class="tm-mb-20 tm-text-small">
+                            截取的3s长度的脑电信号波形。
+                        </p>
+                        <hr class="tm-hr tm-mr">
+                    </div>
+                </div>
+    
+                <div class="tm-media">
+                    <img id="poss" alt="Intro image" height="407" width="640">
+                    <script>document.getElementById("poss").src="images/poss/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <div class="tm-media-body">
+                        <h2><a class="tm-text-primary">AI系统诊断结果</a></h2>
+                        <p class="tm-mb-20 tm-text-small">
+                            Deep Learning和Machine Learning分别表示采用两种不同的AI架构的模型预测受试者为抑郁或者健康的概率。
+                        </p>
+                        <hr class="tm-hr tm-mr">
+                    </div>
+                </div>
+                
+                <div class="tm-media">
+                    <img id="tsne" alt="Intro image" height="594" width="640">
+                    <script>document.getElementById("tsne").src="images/tsne/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <div class="tm-media-body">
+                        <h2><a class="tm-text-primary">脑电信号特征2D分布图</a></h2>
+                        <p class="tm-mb-20 tm-text-small">
+                            图中圆形标记显示了抑郁症患者或者健康人的脑电信号特征分布，星形标记显示了当前被诊断的受试者的脑电信号特征分布。
+                        </p>
+                        <hr class="tm-hr tm-mr">
+                    </div>
+                </div>
+                <div class="tm-media">
+                    <img id="psw" alt="Intro image" height="2509" width="640">
+                    <script>document.getElementById("psw").src="images/power/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <div class="tm-media-body">
+                        <h2><a class="tm-text-primary">频带功率分布直方图</a></h2>
+                        <p class="tm-mb-20 tm-text-small">
+                            不同频带的脑电图相对功率分布直方图。直方图显示了抑郁症或健康人在五个频带上的脑电图相对功率谱的分布，红线表示当前被诊断的受试者对应频带的相对功率谱数值在图中的位置。(delta:1-3Hz,theta:4-7Hz,alpha:8-13Hz,beta:14-29Hz,gamma:30-45Hz)
+                        </p>
+                        <hr class="tm-hr tm-mr">
+                    </div>
+                </div>
+                <div class="tm-media">
+                    <img id="top" alt="Intro image" height="2177" width="640">
+                    <script>document.getElementById("top").src="images/topographic/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <div class="tm-media-body">
+                        <h2><a class="tm-text-primary">相对功率谱拓扑图</a></h2>
+                        <p class="tm-mb-20 tm-text-small">
+                            当前被诊断的受试者的相对功率谱拓扑图和郁抑症或者健康人的平均相对功率谱拓扑图。图中共显示了5个不同频率段的相对功率谱拓扑图，左侧为当前被诊断的受试者的相对功率谱拓扑图，右侧为抑郁症或者健康人的平均相对功率谱拓扑图。(delta:1-3Hz,theta:4-7Hz,alpha:8-13Hz,beta:14-29Hz,gamma:30-45Hz)
+                        </p>
+                        <hr class="tm-hr tm-mr">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gallery" class="tm-section">
+            <div class="tm-section-col tm-content">
+                <h2 class="tm-text-primary">量表评分结果</h2>
+                <table style="border: 1" id="scale" width="1000px" height="100px">
+                    <tr>
+                        <td>抑郁程度</td>
+                        <td>嗜睡程度</td>
+                        <td>失眠程度</td>
+                        <td>焦虑程度</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div id="about" class="tm-section">
+            <div class="tm-section-col tm-content">
+                <h2 class="tm-text-primary">所使用的深度学习模型</h2>
+                <div class="tm-model">
+                    <img src="images/CNN-Model.jpg" alt="Intro image">
+                </div>
+            </div>
+        </div> 
+
+        <div id="contact" class="tm-section">
+            <div class="tm-section-col tm-content tm-content-small">
+                <h2 class="tm-text-primary">联系我们</h2>
+                <form id="contact-form" action="" method="POST" class="tm-contact-form tm-mb-200">
+                    <div class="form-group">
+                        <textarea rows="6" name="message" class="form-control rounded-0" placeholder="Message" required=></textarea>
+                    </div>
+                    <div class="form-group tm-text-right">
+                        <button type="submit" class="tm-btn">发送</button>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </main>
+
+    <script src="js/plugins.js"></script>
+    <script>
+        $(window).on("load", function() {
+            $('body').addClass('loaded');
+        });
+
+        $(function(){
+            
+            /*************** Navigation *****************/
+
+            const tmMainNav = $("#tm-main-nav");
+
+            tmMainNav.singlePageNav({
+                filter: ':not(.external)'
+            });
+
+            $('.navbar-toggler').click(function(e) {
+                e.stopPropagation();
+                tmMainNav.toggleClass('show');
+            });
+
+            $("html").click(function(e) {
+                $("#tm-main-nav").removeClass("show");
+            });
+
+            /****************** Smooth Scrolling *****************/
+
+            $(".tm-btn-next").on('click', function(event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function(){
+                        // window.location.hash = hash;
+                    });
+                }
+            });
+
+            $('.tm-brand-icon').on('click', function(event) {
+                $('html, body').animate({
+                        scrollTop: $('#intro').offset().top
+                    }, 800);
+            });
+        });
+    </script>
+    <script>
+        window.onload=function(){
+            $.ajax({
+                type: "GET",
+                url: "report?phone_number="+window.location.pathname.match("([0-9]{11})")[0],
+                dataType: 'json',
+                async: false,
+                success: function(result){
+                    var data = result;
+                    var gender = "";
+                    if (0 === data.Gender)
+                        gender = "男";
+                    else
+                        gender = "女";
+                    var trTD = "<tr><td>"+data.Name+"</td><td>"+gender+"</td><td>"
+                                 + data.Age+"</td><td>"+data.Time+"</td></tr>";
+                    $("#tb").append(trTD);
+                    var score = "<tr><td>"+data.SAS+"</td><td>"+data.ESS+"</td><td>"
+                                 + data.ISI+"</td><td>"+data.SDS+"</td></tr>";
+                    $("#scale").append(score);
+                    var sas_result = ""
+                    if (data.SAS < 50.0) {
+                        sas_result = '无症状'
+                    } else if (data.SAS < 60.0) {
+                        sas_result = '轻微'
+                    } else if (data.SAS < 70.0) {
+                        sas_result = '中度'
+                    } else {
+                        sas_result = '严重'
+                    }
+                    var ess_result = ""
+                    if (data.ESS < 8.0) {
+                        ess_result = '无症状'
+                    } else if (data.ESS < 10.0) {
+                        ess_result = '轻微'
+                    } else if (data.ESS < 12.0) {
+                        ess_result = '中度'
+                    } else {
+                        ess_result = '严重'
+                    }
+                    var isi_result = ""
+                    if (data.ISI < 50.0) {
+                        isi_result = '无症状'
+                    } else if (data.ISI < 60.0) {
+                        isi_result = '轻微'
+                    } else if (data.ISI < 70.0) {
+                        isi_result = '中度'
+                    } else {
+                        isi_result = '严重'
+                    }
+                    var sds_result = ""
+                    if (data.SDS < 50.0) {
+                        sds_result = '无症状'
+                    } else if (data.SDS < 60.0) {
+                        sds_result = '轻微'
+                    } else if (data.SDS < 70.0) {
+                        sds_result = '中度'
+                    } else {
+                        sds_result = '严重'
+                    }
+                    var score_result = "<tr><td>"+sas_result+"</td><td>"+ess_result+"</td><td>"
+                                     + isi_result+"</td><td>"+sds_result+"</td></tr>";
+                    $("#scale").append(score_result);
+                },
+                error: function(){
+                    window.location.href = "/failed_submit.html";
+                }
+            });
+        }();
+    </script>
+</body>
+</html>

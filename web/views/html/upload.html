@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EEG文件上传</title>
+	<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="css/upload_style.css">
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300italic,300,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="File Upload widget Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</head>
+
+<body>
+<h1>EEG文件上传</h1>
+<div class="agile-its">
+	<h2>File Upload</h2>
+	<div class="w3layouts">
+	<p>请上传对应被试的EEG数据文件(.set, .fdt)</p>
+		<div class="photos-upload-view">
+			<div class="agileinfo">
+				<form id="upload" action="/eeg_data" method="POST" enctype="multipart/form-data">
+					<input type="file" name="set_file" id="set_file">
+					<input type="file" name="fdt_file" id="fdt_file">
+					<input type="button" name="button_set" id="get_set_file" value="选择文件(.set)" onclick="set_file.click(); return false;">
+					<input type="button" name="button_fdt" id="get_fdt_file" value="选择文件(.fdt)" onclick="fdt_file.click(); return false;">
+                    <input type="submit" value="上传" id="ups" onclick="upload(); return false;" />
+				</form>
+				<script>
+					document.getElementById("ups").style.marginTop="10px";
+					document.getElementById("set_file").addEventListener("change", function() {
+						document.getElementById("get_set_file").value = document.getElementById("set_file").files[0].name;
+    
+					});
+					document.getElementById("fdt_file").addEventListener("change", function() {
+						document.getElementById("get_fdt_file").value = document.getElementById("fdt_file").files[0].name;
+					});		
+				</script>
+				<script type="text/javascript" src="js/upload.js"></script>
+				<style>
+					#set_file {
+						display: none;
+					}
+
+					#get_set_file {
+						background: #f9f9f9;
+						border: 5px solid #88c;
+						padding: 15px;
+						border-radius: 5px;
+						margin: 10px;
+						cursor: pointer;
+					}
+
+					#fdt_file {
+						display: none;
+					}
+
+					#get_fdt_file {
+						background: #f9f9f9;
+						border: 5px solid #88c;
+						padding: 15px;
+						border-radius: 5px;
+						margin: 10px;
+						cursor: pointer;
+					}
+				</style>
+            </div>
+		</div>
+		<div class="clearfix"></div>
+		</div>
+</div>
+<!-- <div class="footer">
+	<p> © 2016 File Upload widget. All Rights Reserved | Design by  <a href="http://w3layouts.com/"> W3layouts</a></p>
+</div> -->
+</div>
+</body>
+</html>

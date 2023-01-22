@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>问卷调查</title>
+	<script src="js/jquery-3.6.0.min.js"></script>
+	<script src="js/scale.js"></script>
+	<!-- for-mobile-apps -->
+	<meta http-equiv="Content-Type" content="
+	text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-w
+	idth, initial-scale=1, maximum-scale=1">
+	
+	<meta http-equiv="Content-Type" content="text/htm
+	l; charset=utf-8" /> 
+	<meta name="keywords" content="Feedback Widget Responsive
+	, Logi
+	n form web template, Sign up Web Templates, Flat 
+	Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<!-- //for-mobile-apps -->
+	<link href='//fonts.googleapis.com/css?family=Amaranth:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Josefin+Sl
+	ab:400,100,100italic,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+	<link href="css/questionnaire_style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+
+<div class="content">
+	<h1>焦虑自评量表（SAS）</h1>
+	<div class="main">
+		<h5> 
+			<span>焦虑是一种比较普遍的精神体验，长期存在焦虑反应的人易发展为焦虑症。
+			本量表包含 20 个项目，分为 4 级评分，请您仔细阅读以下内容，根据最近一星
+			期的情况如实回答。
+			</span> 
+		</h5>	
+		<h5>
+			填写说明<br/>
+			<span>
+				A 没有或很少时间；<br/>B 小部分时间；<br/>C 相当多时间；<br/>D 绝大部分或全部时间。<br/>
+			</span>
+		</h5>
+		<form id="sas">
+			<h5>姓名</h5>
+				<input type="text" value="" id="name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
+			<h5>编号</h5>
+				<input type="text" value="" id="serial_number" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
+			<h5>年龄</h5>
+				<input type="text" value="" id="age" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
+			<h5>性别</h5>
+				<label>
+					<input type="radio" name="radio20" checked="">
+					<i></i>男
+				</label> 
+				<label>
+					<input type="radio" name="radio20">
+					<i></i>女
+				</label> 
+			<h5>我觉得比平时容易紧张或着急</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio"> 
+								<label>
+									<input type="radio" name="radio" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio"> 
+								<label>
+									<input type="radio" name="radio">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio"> 
+								<label>
+									<input type="radio" name="radio">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio"> 
+								<label>
+									<input type="radio" name="radio">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我无缘无故在感到害怕</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio1"> 
+								<label>
+									<input type="radio" name="radio1" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio1"> 
+								<label>
+									<input type="radio" name="radio1">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio1"> 
+								<label>
+									<input type="radio" name="radio1">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio1"> 
+								<label>
+									<input type="radio" name="radio1">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我容易心里烦乱或感到惊恐</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio2"> 
+								<label>
+									<input type="radio" name="radio2" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio2"> 
+								<label>
+									<input type="radio" name="radio2">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio2"> 
+								<label>
+									<input type="radio" name="radio2">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio2"> 
+								<label>
+									<input type="radio" name="radio2">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我觉得我可能将要发疯</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio3"> 
+								<label>
+									<input type="radio" name="radio3" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio3"> 
+								<label>
+									<input type="radio" name="radio3">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio3"> 
+								<label>
+									<input type="radio" name="radio3">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio3"> 
+								<label>
+									<input type="radio" name="radio3">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我觉得一切都很好</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio4"> 
+								<label>
+									<input type="radio" name="radio4" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio4"> 
+								<label>
+									<input type="radio" name="radio4">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio4"> 
+								<label>
+									<input type="radio" name="radio4">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio4"> 
+								<label>
+									<input type="radio" name="radio4">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我手脚发抖打颤</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio5"> 
+								<label>
+									<input type="radio" name="radio5" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio5"> 
+								<label>
+									<input type="radio" name="radio5">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio5"> 
+								<label>
+									<input type="radio" name="radio5">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio5"> 
+								<label>
+									<input type="radio" name="radio5">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我因为头疼、颈痛和背痛而苦恼</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio6"> 
+								<label>
+									<input type="radio" name="radio6" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio6"> 
+								<label>
+									<input type="radio" name="radio6">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio6"> 
+								<label>
+									<input type="radio" name="radio6">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio6"> 
+								<label>
+									<input type="radio" name="radio6">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我觉得容易衰弱和疲乏</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio7"> 
+								<label>
+									<input type="radio" name="radio7" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio7"> 
+								<label>
+									<input type="radio" name="radio7">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio7"> 
+								<label>
+									<input type="radio" name="radio7">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio7"> 
+								<label>
+									<input type="radio" name="radio7">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我觉得心平气和，并且容易安静坐着</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio8"> 
+								<label>
+									<input type="radio" name="radio8" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio8"> 
+								<label>
+									<input type="radio" name="radio8">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio8"> 
+								<label>
+									<input type="radio" name="radio8">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio8"> 
+								<label>
+									<input type="radio" name="radio8">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我觉得心跳得很快</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio9"> 
+								<label>
+									<input type="radio" name="radio9" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio9"> 
+								<label>
+									<input type="radio" name="radio9">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio9"> 
+								<label>
+									<input type="radio" name="radio9">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio9"> 
+								<label>
+									<input type="radio" name="radio9">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我因为一阵阵头晕而苦恼</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio10"> 
+								<label>
+									<input type="radio" name="radio10" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio10"> 
+								<label>
+									<input type="radio" name="radio10">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio10"> 
+								<label>
+									<input type="radio" name="radio10">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio10"> 
+								<label>
+									<input type="radio" name="radio10">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我有晕倒发作，或觉得要晕倒似的</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio11"> 
+								<label>
+									<input type="radio" name="radio11" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio11"> 
+								<label>
+									<input type="radio" name="radio11">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio11"> 
+								<label>
+									<input type="radio" name="radio11">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio11"> 
+								<label>
+									<input type="radio" name="radio11">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我吸气呼气都感到很容易</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio12"> 
+								<label>
+									<input type="radio" name="radio12" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio12"> 
+								<label>
+									<input type="radio" name="radio12">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio12"> 
+								<label>
+									<input type="radio" name="radio12">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio12"> 
+								<label>
+									<input type="radio" name="radio12">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我的手脚麻木和刺痛</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio13"> 
+								<label>
+									<input type="radio" name="radio13" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio13"> 
+								<label>
+									<input type="radio" name="radio13">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio13"> 
+								<label>
+									<input type="radio" name="radio13">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio13"> 
+								<label>
+									<input type="radio" name="radio13">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我因为胃痛和消化不良而苦恼</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio14"> 
+								<label>
+									<input type="radio" name="radio14" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio14"> 
+								<label>
+									<input type="radio" name="radio14">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio14"> 
+								<label>
+									<input type="radio" name="radio14">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio14"> 
+								<label>
+									<input type="radio" name="radio14">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我常常要小便</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio15"> 
+								<label>
+									<input type="radio" name="radio15" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio15"> 
+								<label>
+									<input type="radio" name="radio15">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio15"> 
+								<label>
+									<input type="radio" name="radio15">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio15"> 
+								<label>
+									<input type="radio" name="radio15">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+		<h5>我的手脚常常是干燥温暖的</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio16"> 
+								<label>
+									<input type="radio" name="radio16" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio16"> 
+								<label>
+									<input type="radio" name="radio16">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio16"> 
+								<label>
+									<input type="radio" name="radio16">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio16"> 
+								<label>
+									<input type="radio" name="radio16">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我脸红发热</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio17"> 
+								<label>
+									<input type="radio" name="radio17" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio17"> 
+								<label>
+									<input type="radio" name="radio17">
+									<i></i>B
+								</label>
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio17"> 
+								<label>
+									<input type="radio" name="radio17">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio17"> 
+								<label>
+									<input type="radio" name="radio17">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我容易入睡并且一夜睡得很好</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio18"> 
+								<label>
+									<input type="radio" name="radio18" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio18"> 
+								<label>
+									<input type="radio" name="radio18">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio18"> 
+								<label>
+									<input type="radio" name="radio18">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio18"> 
+								<label>
+									<input type="radio" name="radio18">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+			<h5>我做恶梦</h5>
+			<div class="radio-btns">
+					<div class="swit">								
+						<div class="check_box_one"> 
+							<div class="radio19"> 
+								<label>
+									<input type="radio" name="radio19" checked="">
+									<i></i>A
+								</label> 
+							</div>
+						</div>
+                        <div class="check_box"> 
+							<div class="radio19"> 
+								<label>
+									<input type="radio" name="radio19">
+									<i></i>B
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio19"> 
+								<label>
+									<input type="radio" name="radio19">
+									<i></i>C
+								</label> 
+							</div>
+						</div>
+						<div class="check_box"> 
+							<div class="radio19"> 
+								<label>
+									<input type="radio" name="radio19">
+									<i></i>D
+								</label> 
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>	
+			<input type="submit" value="下一项" onclick="sas(); return false; ">
+		</form>
+	</div>
+</div>
+</body>
+</html>
