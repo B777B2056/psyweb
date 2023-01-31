@@ -2,65 +2,37 @@ package router
 
 import (
 	"net/http"
-	"psyWeb/configuration"
 	"psyWeb/web/controller"
-	"regexp"
-	"strings"
 )
 
 type PsyWebServer struct {
-	rootPath string
 }
 
-func (svr *PsyWebServer) Init() {
-	svr.rootPath = configuration.GetConfigInstance().ViewRootPath
-}
-
-func (svr *PsyWebServer) pathMapping(path string) string {
-	if path[0] == '/' {
-		path = path[1:]
-	}
-	file_path := svr.rootPath
-	if match, _ := regexp.MatchString("p([0-9]*)v([0-9]*)", path); match {
-		path = path[strings.IndexByte(path, '/'):]
-	}
-	if strings.HasSuffix(path, "html") {
-		file_path = file_path + "html"
-	}
-	if path[0] != '/' {
-		file_path += "/"
-	}
-	return file_path + path
-}
-
-func (svr *PsyWebServer) ServeHTTP(response http.ResponseWriter, request *http.Request) {
-	switch url := request.URL.Path; url {
+func (svr *PsyWebServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	switch url := r.URL.Path; url {
 	case "/":
-		// 渲染login页面
-		controller.HandleHome(response, svr.rootPath)
-	case "/login/staff":
-		// 工作人员登录
-		controller.HandleStaffLogin(response, request)
-	case "/login/get_verification_code":
-		// 获取验证码
-		controller.HandleVerificationCode(response, request)
-	case "/login/verification":
-		// 登录
-		controller.HandleUserLogin(response, request)
+		controller.HandleHome(w, r)
+	case "/login_staff":
+		controller.HandleStaffLogin(w, r)
+	case "/get_verification_code":
+		controller.HandleVerificationCode(w, r)
+	case "/login_user":
+		controller.HandleUserLogin(w, r)
 	case "/scale":
-		// 量表
-		controller.HandleScale(response, request)
+		controller.HandleScale(w, r)
 	case "/eeg_data":
-		// EEG数据文件上传
-		controller.HandleEEGUpload(response, request)
+		controller.HandleEEGUpload(w, r)
+	case "/staff":
+		controller.HandleStaffJmp(w, r)
+	case "/scale_sas":
+		controller.HandleScaleSASJmp(w, r)
+	case "/scale_ess":
+		controller.HandleScaleESSJmp(w, r)
+	case "/scale_isi":
+		controller.HandleScaleISIJmp(w, r)
+	case "/scale_sds":
+		controller.HandleScaleSDSJmp(w, r)
 	default:
-		matched, _ := regexp.MatchString("/report*", url)
-		if matched {
-			// 获取诊断报告:
-			controller.HandleGetReport(response, request)
-		} else {
-			// 处理资源请求
-			controller.HandleResource(response, svr.pathMapping(url))
-		}
+		controller.HandleStaticResource(w, r)
 	}
 }

@@ -10,13 +10,14 @@ import (
 	"regexp"
 )
 
-func main() {
-	// 创建数据库
+func initDataBase() {
 	db := utils.GetPsyWebDataBaseInstance()
 	if err := db.ConnectToSQL(); err != nil {
 		log.Fatal(err)
-		return
 	}
+}
+
+func initDeepLearning() {
 	// 创建深度学习模型运行子进程
 	dl := utils.GetDeepLearningInstance()
 	dl.RegistMsgHandler(func(msg []byte) {
@@ -30,14 +31,16 @@ func main() {
 	})
 	if err := dl.Start(); err != nil {
 		log.Fatal(err)
-		return
 	}
+}
+
+func main() {
+	initDataBase()
+	initDeepLearning()
+	defer utils.GetDeepLearningInstance().Stop()
 	// 服务器运行
 	svr := &router.PsyWebServer{}
-	svr.Init()
 	if err := http.ListenAndServe(configuration.GetConfigInstance().Port, svr); err != nil {
-		dl.Stop()
 		log.Fatal("ListenAndServe: ", err)
 	}
-	dl.Stop()
 }

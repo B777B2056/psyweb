@@ -6,7 +6,7 @@
     <title>诊断报告</title>
     <script src="js/jquery-3.6.0.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="fontawesome/css/all.min.css">   
+    <link rel="stylesheet" href="css/all.min.css">   
     <link rel="stylesheet" href="css/magnific-popup.css">       
     <link rel="stylesheet" href="css/tooplate-vertex.css">
 </head>
@@ -70,6 +70,12 @@
                         <td>年龄</td>
                         <td>测试日期</td>
                     </tr>
+                    <tr>
+                        <td>{{ .Name }}</td>
+                        <td>{{ .Gender }}</td>
+                        <td>{{ .Age }}</td>
+                        <td>{{ .Time }}</td>
+                    </tr>
                 </table>  
             </div>
         </div> 
@@ -78,8 +84,7 @@
             <div class="tm-section-col tm-content">
                 <h2 class="tm-text-primary">脑电分析结果</h2>
                 <div class="tm-media">
-                    <img id="eeg" alt="Intro image" height="403" width="640">
-                    <script>document.getElementById("eeg").src="images/eeg/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <img id="eeg" alt="Intro image" height="403" width="640" src="images/eeg/{{ .PhoneNumber }}.jpg">
                     <div class="tm-media-body">
                         <h2><a class="tm-text-primary">脑电波信号图</a></h2>
                         <p class="tm-mb-20 tm-text-small">
@@ -90,8 +95,7 @@
                 </div>
     
                 <div class="tm-media">
-                    <img id="poss" alt="Intro image" height="407" width="640">
-                    <script>document.getElementById("poss").src="images/poss/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <img id="poss" alt="Intro image" height="407" width="640" src="images/poss/{{ .PhoneNumber }}.jpg">
                     <div class="tm-media-body">
                         <h2><a class="tm-text-primary">AI系统诊断结果</a></h2>
                         <p class="tm-mb-20 tm-text-small">
@@ -102,8 +106,7 @@
                 </div>
                 
                 <div class="tm-media">
-                    <img id="tsne" alt="Intro image" height="594" width="640">
-                    <script>document.getElementById("tsne").src="images/tsne/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <img id="tsne" alt="Intro image" height="594" width="640" src="images/tsne/{{ .PhoneNumber }}.jpg">
                     <div class="tm-media-body">
                         <h2><a class="tm-text-primary">脑电信号特征2D分布图</a></h2>
                         <p class="tm-mb-20 tm-text-small">
@@ -113,8 +116,7 @@
                     </div>
                 </div>
                 <div class="tm-media">
-                    <img id="psw" alt="Intro image" height="2509" width="640">
-                    <script>document.getElementById("psw").src="images/power/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <img id="psw" alt="Intro image" height="2509" width="640" src="images/power/{{ .PhoneNumber }}.jpg">
                     <div class="tm-media-body">
                         <h2><a class="tm-text-primary">频带功率分布直方图</a></h2>
                         <p class="tm-mb-20 tm-text-small">
@@ -124,8 +126,7 @@
                     </div>
                 </div>
                 <div class="tm-media">
-                    <img id="top" alt="Intro image" height="2177" width="640">
-                    <script>document.getElementById("top").src="images/topographic/"+window.location.pathname.match("([0-9]{11})")[0]+".jpg";</script>
+                    <img id="top" alt="Intro image" height="2177" width="640" src="images/topographic/{{ .PhoneNumber }}.jpg">
                     <div class="tm-media-body">
                         <h2><a class="tm-text-primary">相对功率谱拓扑图</a></h2>
                         <p class="tm-mb-20 tm-text-small">
@@ -146,6 +147,12 @@
                         <td>嗜睡程度</td>
                         <td>失眠程度</td>
                         <td>焦虑程度</td>
+                    </tr>
+                    <tr>
+                        <td>{{ .SAS }}</td>
+                        <td>{{ .ESS }}</td>
+                        <td>{{ .ISI }}</td>
+                        <td>{{ .SDS }}</td>
                     </tr>
                 </table>
             </div>
@@ -210,7 +217,7 @@
                     $('html, body').animate({
                         scrollTop: $(hash).offset().top
                     }, 800, function(){
-                        // window.location.hash = hash;
+
                     });
                 }
             });
@@ -221,76 +228,6 @@
                     }, 800);
             });
         });
-    </script>
-    <script>
-        window.onload=function(){
-            $.ajax({
-                type: "GET",
-                url: "report?phone_number="+window.location.pathname.match("([0-9]{11})")[0],
-                dataType: 'json',
-                async: false,
-                success: function(result){
-                    var data = result;
-                    var gender = "";
-                    if (0 === data.Gender)
-                        gender = "男";
-                    else
-                        gender = "女";
-                    var trTD = "<tr><td>"+data.Name+"</td><td>"+gender+"</td><td>"
-                                 + data.Age+"</td><td>"+data.Time+"</td></tr>";
-                    $("#tb").append(trTD);
-                    var score = "<tr><td>"+data.SAS+"</td><td>"+data.ESS+"</td><td>"
-                                 + data.ISI+"</td><td>"+data.SDS+"</td></tr>";
-                    $("#scale").append(score);
-                    var sas_result = ""
-                    if (data.SAS < 50.0) {
-                        sas_result = '无症状'
-                    } else if (data.SAS < 60.0) {
-                        sas_result = '轻微'
-                    } else if (data.SAS < 70.0) {
-                        sas_result = '中度'
-                    } else {
-                        sas_result = '严重'
-                    }
-                    var ess_result = ""
-                    if (data.ESS < 8.0) {
-                        ess_result = '无症状'
-                    } else if (data.ESS < 10.0) {
-                        ess_result = '轻微'
-                    } else if (data.ESS < 12.0) {
-                        ess_result = '中度'
-                    } else {
-                        ess_result = '严重'
-                    }
-                    var isi_result = ""
-                    if (data.ISI < 50.0) {
-                        isi_result = '无症状'
-                    } else if (data.ISI < 60.0) {
-                        isi_result = '轻微'
-                    } else if (data.ISI < 70.0) {
-                        isi_result = '中度'
-                    } else {
-                        isi_result = '严重'
-                    }
-                    var sds_result = ""
-                    if (data.SDS < 50.0) {
-                        sds_result = '无症状'
-                    } else if (data.SDS < 60.0) {
-                        sds_result = '轻微'
-                    } else if (data.SDS < 70.0) {
-                        sds_result = '中度'
-                    } else {
-                        sds_result = '严重'
-                    }
-                    var score_result = "<tr><td>"+sas_result+"</td><td>"+ess_result+"</td><td>"
-                                     + isi_result+"</td><td>"+sds_result+"</td></tr>";
-                    $("#scale").append(score_result);
-                },
-                error: function(){
-                    window.location.href = "/failed_submit.html";
-                }
-            });
-        }();
     </script>
 </body>
 </html>

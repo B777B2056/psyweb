@@ -10,7 +10,7 @@ check_file_ext = function(filePath, targetExt) {
     return extName === targetExt;
 }
 
-upload = function() {
+function upload() {
     set_file = document.getElementById("set_file");
     fdt_file = document.getElementById("fdt_file");
     // 校验文件数量

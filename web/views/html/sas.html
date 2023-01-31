@@ -40,7 +40,7 @@
 				A 没有或很少时间；<br/>B 小部分时间；<br/>C 相当多时间；<br/>D 绝大部分或全部时间。<br/>
 			</span>
 		</h5>
-		<form id="sas">
+		<form id="sas" action="/scale_sas" method="post">
 			<h5>姓名</h5>
 				<input type="text" value="" id="name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
 			<h5>编号</h5>
@@ -816,7 +816,7 @@
 						<div class="clear"></div>
 					</div>
 			</div>	
-			<input type="submit" value="下一项" onclick="sas(); return false; ">
+			<input type="submit" value="下一项" onclick="sas(); this.form.submit(); return false; ">
 		</form>
 	</div>
 </div>

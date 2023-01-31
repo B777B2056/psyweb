@@ -6,49 +6,66 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"psyWeb/configuration"
 	"strings"
+	"text/template"
 )
 
-func ParseJson(response http.ResponseWriter, request *http.Request, v interface{}) error {
-	content, err := io.ReadAll(request.Body)
+func ParseJson(w http.ResponseWriter, r *http.Request, v interface{}) error {
+	content, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Println(err)
-		response.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
 		goto RET
 	}
 	err = json.Unmarshal(content, v)
 	if err != nil {
 		log.Println(err)
-		response.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
 		goto RET
 	}
 RET:
 	return err
 }
 
-func RenderJson(response http.ResponseWriter, data interface{}) {
+func RenderJson(w http.ResponseWriter, data interface{}) {
 	if bytes, err := json.Marshal(data); err != nil {
 		log.Println(err)
-		response.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
 	} else {
-		response.Write(bytes)
+		w.Write(bytes)
 	}
 }
 
-func RenderStaticResources(response http.ResponseWriter, path string) {
-	if strings.HasSuffix(path, "js") {
-		response.Header().Set("Content-Type", "text/javascript")
-	} else if strings.HasSuffix(path, "css") {
-		response.Header().Set("Content-Type", "text/css")
-	} else if strings.HasSuffix(path, "html") {
-		response.Header().Set("Content-Type", "text/html")
-	} else {
-		log.Printf("Content-Type %s not supported", response.Header().Get("Content-Type"))
+func pathMapping(path string) string {
+	if path[0] == '/' {
+		path = path[1:]
 	}
+	file_path := configuration.GetConfigInstance().ViewRootPath
+	if path[0] != '/' {
+		file_path += "/"
+	}
+	return file_path + path
+}
 
-	if data, err := os.ReadFile(path); err != nil {
-		response.WriteHeader(http.StatusNotFound)
+func RenderStaticResources(w http.ResponseWriter, path string) {
+	path = pathMapping(path)
+	log.Printf("path: %s", path)
+	if strings.HasSuffix(path, "js") {
+		w.Header().Set("Content-Type", "text/javascript")
+	} else if strings.HasSuffix(path, "css") {
+		w.Header().Set("Content-Type", "text/css")
 	} else {
-		response.Write(data)
+
 	}
+	if data, err := os.ReadFile(path); err != nil {
+		w.WriteHeader(http.StatusNotFound)
+	} else {
+		w.Write(data)
+	}
+}
+
+func RenderHtmlPage(w http.ResponseWriter, path string, data interface{}) {
+	t := template.Must(template.ParseFiles(configuration.GetConfigInstance().ViewRootPath + "html/" + path))
+	t.Execute(w, data)
 }

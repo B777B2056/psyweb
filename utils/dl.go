@@ -87,6 +87,7 @@ func (dl *deepLearning) Do(eeg_data_path string) error {
 func (dl *deepLearning) Stop() error {
 	msg := "stop\n"
 	err := dl.handleWrite([]byte(msg))
+	dl.wg.Done()
 	dl.wg.Wait()
 	return err
 }

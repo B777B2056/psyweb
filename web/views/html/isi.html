@@ -24,7 +24,7 @@
 				本量表包含 6 个问题，请您仔细阅读以下内容，根据最近情况如实回答。
 			</span> 
 		</h5>	
-		<form id="isi">
+		<form id="isi" action="/scale_isi" method="post">
         	<h5>最近 2 周失眠问题的现象</h5>
 			<div class="radio-btns">
 					<div class="swit">								
@@ -285,7 +285,7 @@
 						<div class="clear"></div>
 					</div>
 			</div>
-			<input type="submit" value="下一项" onclick="isi(); return false;">
+			<input type="submit" value="下一项" onclick="isi(); this.form.submit(); return false;">
 		</form>
 	</div>
 </div>

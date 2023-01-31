@@ -7,6 +7,8 @@ if __name__ == '__main__':
     ipc = IpcWrapper()
     ipc.loop()
     # content = "/mnt/e/jr/go/src/psyWeb/deeplearning/eeg_data/15901267537"
+    # content = "E:/jr/go/src/psyWeb/deeplearning/eeg_data/15901267537"
+    # content = "./eeg_data/15901267537"
     # phone_number = content.split("/")[-1]
     # set_file_path = content+".set"
     # fdt_file_path = content+".fdt"

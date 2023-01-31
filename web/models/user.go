@@ -14,7 +14,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var userMap sync.Map // 模拟数据库
+var userMap sync.Map
 
 /* 生成6位短信验证码 */
 func generateVerificationCode() (code string) {
@@ -39,12 +39,12 @@ func generateVerificationCode() (code string) {
 /* 普通用户 */
 type User struct {
 	/* 基本信息 */
-	PhoneNumber  string           `json:"PhoneNumber"`
-	Code         string           `json:"Code"`
-	SerialNumber string           `json:"SerialNumber"`
-	Name         string           `json:"Name"`
-	Gender       utils.UserGender `json:"Gender"`
-	Age          uint8            `json:"Age"`
+	PhoneNumber      string           `json:"PhoneNumber"`
+	VerificationCode string           `json:"VerificationCode"`
+	SerialNumber     string           `json:"SerialNumber"`
+	Name             string           `json:"Name"`
+	Gender           utils.UserGender `json:"Gender"`
+	Age              uint8            `json:"Age"`
 	/* 量表信息 */
 	SASScore float32 `json:"SAS"`
 	ESSScore float32 `json:"ESS"`
@@ -78,7 +78,7 @@ func (user *User) FillFields() {
 		log.Println("select *", err)
 	}
 	for rows.Next() {
-		rows.Scan(&user.PhoneNumber, &user.Code, &user.SerialNumber, &user.Name, &user.Gender, &user.Age, &user.SASScore, &user.ESSScore, &user.ISIScore, &user.SDSScore, &user.Status)
+		rows.Scan(&user.PhoneNumber, &user.VerificationCode, &user.SerialNumber, &user.Name, &user.Gender, &user.Age, &user.SASScore, &user.ESSScore, &user.ISIScore, &user.SDSScore, &user.Status)
 	}
 }
 
@@ -108,8 +108,8 @@ func (user *User) New() (err error) {
 	log.Printf("New user: %+v\n", *user)
 	user.updateStatus()
 
-	sqlStr := "INSERT INTO user(PhoneNumber, Code, SerialNumber, Name, Gender, Age, SASScore, ESSScore, ISIScore, SDSScore, Status) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
-	_, err = utils.GetPsyWebDataBaseInstance().Db.Exec(sqlStr, user.PhoneNumber, user.Code, user.SerialNumber, user.Name, user.Gender, user.Age, user.SASScore, user.ESSScore, user.ISIScore, user.SDSScore, user.Status)
+	sqlStr := "INSERT INTO user(PhoneNumber, VerificationCode, SerialNumber, Name, Gender, Age, SASScore, ESSScore, ISIScore, SDSScore, Status) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+	_, err = utils.GetPsyWebDataBaseInstance().Db.Exec(sqlStr, user.PhoneNumber, user.VerificationCode, user.SerialNumber, user.Name, user.Gender, user.Age, user.SASScore, user.ESSScore, user.ISIScore, user.SDSScore, user.Status)
 	if err != nil {
 		user.Del() // 出错则删除已插入的用户信息
 		log.Printf("insert %s failed, err:%v\n", "PhoneNumber", err)
@@ -127,7 +127,7 @@ func (user *User) UpdateScaleResult() (err error) {
 	for i := 0; i < s_value.NumField(); i++ {
 		field_name := s_type.Field(i).Name
 		// 不更新与量表无关的变量
-		if (field_name == "PhoneNumber") || (field_name == "Code") {
+		if (field_name == "PhoneNumber") || (field_name == "VerificationCode") {
 			continue
 		}
 		field_val := s_value.Field(i).Interface()
@@ -149,37 +149,32 @@ func (user *User) UpdateEEGResult() (err error) {
 }
 
 /* 发送验证码至用户手机 */
-func (user *User) SendVerificationCodeToUserPhone() {
-	user.Code = generateVerificationCode()
-	log.Printf("Send Verification Code: %s", user.Code)
-	userMap.Store(user.PhoneNumber, user.Code)
-	utils.SendSMSByTencentCloud(user.PhoneNumber, user.Code)
+func SendVerificationCodeToUserPhone(phone_number string) {
+	code := generateVerificationCode()
+	log.Printf("Send Verification Code: %s", code)
+	userMap.Store(phone_number, code)
+	utils.SendSMSByTencentCloud(phone_number, code)
 }
 
 /* 检查给定用户信息是否匹配已有用户信息（手机号，验证码是否匹配），以及查询用户状态 */
-type UserVerification struct {
-	Result bool             `json:"VerificationResult"`
-	Status utils.UserStatus `json:"UserStatus"`
-}
-
-func (info *UserVerification) Check(user User) *UserVerification {
+func (user *User) Check() (result bool, status utils.UserStatus) {
 	if ptr, _ := userMap.Load(user.PhoneNumber); ptr != nil {
 		// 检查验证码是否匹配
 		correct_code := ptr.(string)
-		info.Result = (correct_code == user.Code)
+		result = (correct_code == user.VerificationCode)
 		// 查询User状态（仅验证码匹配时进行）
-		if info.Result {
+		if result {
 			if isExist, _ := user.IsExist(); !isExist {
 				user.New() // 新建用户
 			} else {
 				user.FillFields() // 填充字段
 			}
-			info.Status = user.Status // 已有用户
+			status = user.Status // 已有用户
 		}
 		userMap.Delete(user.PhoneNumber)
 	} else {
-		info.Result = false
-		info.Status = utils.NotExist
+		result = false
+		status = utils.NotExist
 	}
-	return info
+	return result, status
 }

@@ -30,7 +30,7 @@
 				A 没有或很少时间；<br/>B 小部分时间；<br/>C 相当多时间；<br/>D 绝大部分或全部时间。<br/>
 			</span>
 		</h5>
-		<form id="sds">
+		<form id="sds" action="/scale_sds" method="post">
 			<h5>我觉得闷闷不乐,情绪低沉</h5>
 			<div class="radio-btns">
 					<div class="swit">								
@@ -791,7 +791,7 @@
 						<div class="clear"></div>
 					</div>
 			</div>
-			<input type="submit" value="下一项" onclick="sds(); return false;">
+			<input type="submit" value="下一项" onclick="sds(); this.form.submit(); return false;">
 		</form>
 	</div>
 </div>

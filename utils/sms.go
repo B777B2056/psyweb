@@ -17,19 +17,19 @@ func SendSMSByTencentCloud(phone_number string, code string) {
 	)
 	cpf := profile.NewClientProfile()
 	client, _ := sms.NewClient(credential, "ap-guangzhou", cpf)
-	request := sms.NewSendSmsRequest()
+	r := sms.NewSendSmsRequest()
 	/* 短信应用ID: 短信SdkAppId */
-	request.SmsSdkAppId = common.StringPtr(configuration.GetConfigInstance().SMS.SdkAppId)
+	r.SmsSdkAppId = common.StringPtr(configuration.GetConfigInstance().SMS.SdkAppId)
 	/* 短信签名内容 */
-	request.SignName = common.StringPtr(configuration.GetConfigInstance().SMS.Signature)
+	r.SignName = common.StringPtr(configuration.GetConfigInstance().SMS.Signature)
 	/* 模板 ID: 必须填写已审核通过的模板 ID */
-	request.TemplateId = common.StringPtr(configuration.GetConfigInstance().SMS.TemplateId)
+	r.TemplateId = common.StringPtr(configuration.GetConfigInstance().SMS.TemplateId)
 	/* 模板参数: 模板参数的个数需要与 TemplateId 对应模板的变量个数保持一致，若无模板参数，则设置为空*/
-	request.TemplateParamSet = common.StringPtrs([]string{code})
+	r.TemplateParamSet = common.StringPtrs([]string{code})
 	/* 下发手机号码，采用 E.164 标准，+[国家或地区码][手机号]*/
-	request.PhoneNumberSet = common.StringPtrs([]string{"+86" + phone_number})
+	r.PhoneNumberSet = common.StringPtrs([]string{"+86" + phone_number})
 	// 通过client对象调用想要访问的接口，需要传入请求对象
-	_, err := client.SendSms(request)
+	_, err := client.SendSms(r)
 	// 处理异常
 	if _, ok := err.(*errors.TencentCloudSDKError); ok {
 		log.Printf("An API error has returned: %s", err)
