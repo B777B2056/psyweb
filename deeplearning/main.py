@@ -5,7 +5,10 @@ os.chdir("./deeplearning")
 
 if __name__ == '__main__':
     ipc = IpcWrapper()
-    ipc.loop()
+    try:
+        ipc.loop()
+    except Exception as e:
+        print(e)       
     # content = "/mnt/e/jr/go/src/psyWeb/deeplearning/eeg_data/15901267537"
     # content = "E:/jr/go/src/psyWeb/deeplearning/eeg_data/15901267537"
     # content = "./eeg_data/15901267537"

@@ -20,13 +20,6 @@ CREATE TABLE `user` (
     PRIMARY KEY (`PhoneNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `staff`;
-CREATE TABLE `staff` (
-    `Id` varchar(16),
-    `Password` varchar(16),
-    PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- 新建配置文件中记录的用户
 USE mysql;
 CREATE USER 'admin'@'%' identified by 'b777b2056';

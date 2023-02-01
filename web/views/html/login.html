@@ -18,7 +18,7 @@
                 <div class="w3_info">
                     <h1>欢迎</h1>
                     <h2>账号登录</h2>
-                    <form action="/login_user" method="POST" enctype="multipart/form-data">
+                    <form action="/login" method="POST" enctype="multipart/form-data">
                         <div class="input-group">
                             <span><i class="fa fa-user" aria-hidden="true"></i></span>
                             <input type="text" id="phone" name="phone_number" placeholder="手机号" required pattern="1([0-9]{10})">
@@ -34,10 +34,6 @@
                             class="btn btn-primary btn-block" id="verification_code_btn"
                             onclick="send_verification_code(phone.value); return false;" type="button">获取验证码
                     </button>
-                    <form action="/staff" method="post">
-                        <input id="jmp" type="submit" class="btn btn-primary btn-block" value="工作人员登录" 
-                               onclick="this.form.submit(); return false;">
-                    </form>
                 </div>
             </div>
         </div>

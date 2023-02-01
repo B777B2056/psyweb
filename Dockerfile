@@ -8,7 +8,6 @@ FROM python:3.7-buster
 WORKDIR /go/src/jr/psyweb
 COPY --from=golang_builder /go/src/jr/psyweb/psyweb .
 COPY ./db_init.sql ./db_init.sql
-COPY ./mysql-apt-config_0.8.24-1_all.deb ./mysql-apt-config_0.8.24-1_all.deb
 COPY ./configuration ./configuration
 COPY ./web/views ./web/views
 COPY ./deeplearning ./deeplearning

@@ -3,11 +3,9 @@ package models
 import (
 	"database/sql"
 	"log"
-	"math"
 	"math/rand"
 	"psyWeb/utils"
 	"reflect"
-	"strconv"
 	"sync"
 	"time"
 
@@ -18,21 +16,15 @@ var userMap sync.Map
 
 /* 生成6位短信验证码 */
 func generateVerificationCode() (code string) {
-	code_num := 0
-	numeric := [10]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	code = ""
+	numeric := []byte("0123456789")
 	r := len(numeric)
 	rand.Seed(time.Now().UnixNano())
 
 	for i := 0; i < 6; i++ {
-		code_num += (numeric[rand.Intn(r)] * int(math.Pow(10, float64(i))))
+		code += string(numeric[rand.Intn(r)])
 	}
 
-	if code_num/int(math.Pow(10, float64(5))) == 0 {
-		code = "0"
-	} else {
-		code = ""
-	}
-	code += strconv.Itoa(code_num)
 	return code
 }
 
@@ -86,7 +78,7 @@ func (user *User) FillFields() {
 func (user *User) updateStatus() error {
 	db := utils.GetPsyWebDataBaseInstance().Db
 	err := db.QueryRow("SELECT Status FROM user WHERE PhoneNumber=?", user.PhoneNumber).Scan(&user.Status)
-	if err != nil && err != sql.ErrNoRows {
+	if err != nil {
 		return err
 	}
 	// 用户状态进入下一状态
@@ -151,30 +143,34 @@ func (user *User) UpdateEEGResult() (err error) {
 /* 发送验证码至用户手机 */
 func SendVerificationCodeToUserPhone(phone_number string) {
 	code := generateVerificationCode()
-	log.Printf("Send Verification Code: %s", code)
+	log.Printf("%s Send Verification Code: %s", phone_number, code)
 	userMap.Store(phone_number, code)
 	utils.SendSMSByTencentCloud(phone_number, code)
 }
 
 /* 检查给定用户信息是否匹配已有用户信息（手机号，验证码是否匹配），以及查询用户状态 */
-func (user *User) Check() (result bool, status utils.UserStatus) {
+func (user *User) Check() (result bool) {
 	if ptr, _ := userMap.Load(user.PhoneNumber); ptr != nil {
 		// 检查验证码是否匹配
 		correct_code := ptr.(string)
 		result = (correct_code == user.VerificationCode)
-		// 查询User状态（仅验证码匹配时进行）
+		// 新建用户（仅验证码匹配时进行）
 		if result {
 			if isExist, _ := user.IsExist(); !isExist {
 				user.New() // 新建用户
-			} else {
-				user.FillFields() // 填充字段
 			}
-			status = user.Status // 已有用户
 		}
 		userMap.Delete(user.PhoneNumber)
 	} else {
 		result = false
-		status = utils.NotExist
 	}
-	return result, status
+	return result
+}
+
+// 查询用户状态
+func QueryUserStatus(phone_number string) (utils.UserStatus, error) {
+	status := utils.NotExist
+	db := utils.GetPsyWebDataBaseInstance().Db
+	err := db.QueryRow("SELECT Status FROM user WHERE PhoneNumber=?", phone_number).Scan(&status)
+	return status, err
 }

@@ -1,5 +1,7 @@
 package utils
 
+import "net/http"
+
 type UserGender uint8
 
 const (
@@ -49,4 +51,9 @@ func (e DiseaseSeverity) String() string {
 		ret = "严重"
 	}
 	return ret
+}
+
+func GetPhoneNumberFromCookie(r *http.Request) (string, error) {
+	cookie, err := r.Cookie("PhoneNumber")
+	return cookie.Value, err
 }

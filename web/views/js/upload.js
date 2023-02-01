@@ -30,15 +30,6 @@ function upload() {
         alert(".fdt文件最多只能上传一个！")
         return; 
     }
-    // 校验文件名
-    if(!check_file_name(set_file.files[0].name)) {
-        alert('.set文件命名有误，正确的应为：被试手机号.set');
-        return;
-    }
-    if(!check_file_name(fdt_file.files[0].name)) {
-        alert('.fdt文件命名有误，正确的应为：被试手机号.fdt');
-        return;
-    }
     // 校验文件后缀
     if (!check_file_ext(set_file.files[0].name, "set")) {
         alert(".set文件类型错误！")

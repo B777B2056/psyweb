@@ -8,21 +8,26 @@ import (
 )
 
 func HandleScale(w http.ResponseWriter, r *http.Request) {
-	// 验证用户是否已登录
-	if ok, err := utils.IsLogged(w, r); !ok || (err != nil) {
+	if !verifyUserInformation(w, r) {
 		return
 	}
 	user := models.User{}
-	if err := views.ParseJson(w, r, &user); err != nil {
-		return
-	}
-	cookie, err := r.Cookie("PhoneNumber")
+	err := views.ParseJson(w, r, &user)
 	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		views.RenderHtmlPage(w, "failed.html", "服务器解析JSON错误")
 		return
 	}
-	user.PhoneNumber = cookie.Value
+	user.PhoneNumber, err = utils.GetPhoneNumberFromCookie(r)
+	if err != nil {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		views.RenderHtmlPage(w, "failed.html", "Cookie错误，请检查浏览器Cookie设置")
+		return
+	}
 	if err := user.UpdateScaleResult(); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		views.RenderHtmlPage(w, "failed.html", "服务器内部数据库错误")
 		return
 	}
-	views.RenderHtmlPage(w, "upload.html", nil)
+	views.RenderHtmlPage(w, "success.html", nil)
 }

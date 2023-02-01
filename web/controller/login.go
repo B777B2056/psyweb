@@ -17,7 +17,7 @@ func HandleUserLogin(w http.ResponseWriter, r *http.Request) {
 		PhoneNumber:      r.FormValue("phone_number"),
 		VerificationCode: r.FormValue("verification_code"),
 	}
-	result, status := user.Check()
+	result := user.Check()
 	if !result {
 		http.Redirect(w, r, "/", http.StatusFound)
 		return
@@ -26,39 +26,20 @@ func HandleUserLogin(w http.ResponseWriter, r *http.Request) {
 	err := utils.AuthenticateUserLogin(w, user.PhoneNumber, user.VerificationCode)
 	if err != nil {
 		log.Printf("Authenticate User Login, err=%s", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		views.RenderHtmlPage(w, "failed.html", "服务器内部错误：Token生成失败")
 		return
 	}
 	// 制作html
-	switch status {
-	case utils.NotExist:
-		http.Redirect(w, r, "/", http.StatusNotFound)
-	case utils.New:
-		views.RenderHtmlPage(w, "sas.html", nil)
-	case utils.WaitForReport:
-		views.RenderHtmlPage(w, "failed.html", "结果未出，请耐心等待")
-	case utils.Done:
-		result, err := models.GetDiagnosticResult(user.PhoneNumber)
-		if err != nil {
-			log.Println(err)
-			return
-		}
-		views.RenderHtmlPage(w, "index.html", &result)
-	}
+	views.RenderHtmlPage(w, "nav.html", nil)
 }
 
-func HandleStaffLogin(w http.ResponseWriter, r *http.Request) {
-	staff := models.StaffUser{
-		Id:       r.FormValue("StaffName"),
-		Password: r.FormValue("Password"),
+func verifyUserInformation(w http.ResponseWriter, r *http.Request) bool {
+	// 验证用户是否已登录
+	if ok, err := utils.IsLogged(w, r); !ok || (err != nil) {
+		w.WriteHeader(http.StatusUnauthorized)
+		views.RenderHtmlPage(w, "failed.html", "用户校验失败，请重新登录！")
+		return false
 	}
-	result := staff.IsPassVerification()
-	if !result {
-		return
-	}
-	err := utils.AuthenticateStaffLogin(w, staff.Id, staff.Password)
-	if err != nil {
-		log.Printf("Authenticate Staff Login, err=%s", err)
-		return
-	}
-	views.RenderHtmlPage(w, "upload.html", nil)
+	return true
 }

@@ -26,7 +26,7 @@ func initDeepLearning() {
 			user := models.User{PhoneNumber: string(msg)}
 			user.UpdateEEGResult()
 		} else {
-			log.Printf("recv msg: %s, len=%d", msg, len(msg))
+			log.Println(string(msg))
 		}
 	})
 	if err := dl.Start(); err != nil {
